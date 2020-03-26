@@ -9,6 +9,7 @@ use Modules\Ipaperwork\Http\Requests\CreatePaperworkRequest;
 use Modules\Ipaperwork\Http\Requests\UpdatePaperworkRequest;
 use Modules\Ipaperwork\Repositories\PaperworkRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
+use Modules\Ipaperwork\Entities\Status;
 
 class PaperworkController extends AdminBaseController
 {
@@ -17,11 +18,20 @@ class PaperworkController extends AdminBaseController
      */
     private $paperwork;
 
-    public function __construct(PaperworkRepository $paperwork)
+     /**
+     * @var Status
+     */
+    private $status;
+
+    public function __construct(
+        PaperworkRepository $paperwork,
+        Status $status
+    )
     {
         parent::__construct();
 
         $this->paperwork = $paperwork;
+        $this->status = $status;
     }
 
     /**
@@ -31,9 +41,8 @@ class PaperworkController extends AdminBaseController
      */
     public function index()
     {
-        //$paperworks = $this->paperwork->all();
-
-        return view('ipaperwork::admin.paperworks.index', compact(''));
+        $paperworks = $this->paperwork->all();
+        return view('ipaperwork::admin.paperworks.index', compact('paperworks'));
     }
 
     /**
@@ -43,7 +52,8 @@ class PaperworkController extends AdminBaseController
      */
     public function create()
     {
-        return view('ipaperwork::admin.paperworks.create');
+        $status = $this->status->lists();
+        return view('ipaperwork::admin.paperworks.create',compact('status'));
     }
 
     /**
@@ -54,10 +64,24 @@ class PaperworkController extends AdminBaseController
      */
     public function store(CreatePaperworkRequest $request)
     {
-        $this->paperwork->create($request->all());
 
-        return redirect()->route('admin.ipaperwork.paperwork.index')
+        \DB::beginTransaction();
+        try {
+
+            $this->paperwork->create($request->all());
+            \DB::commit();//Commit to Data Base
+
+            return redirect()->route('admin.ipaperwork.paperwork.index')
             ->withSuccess(trans('core::core.messages.resource created', ['name' => trans('ipaperwork::paperworks.title.paperworks')]));
+
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error($e);
+            return redirect()->back()
+                ->withError(trans('core::core.messages.resource error', ['name' => trans('ipaperwork::paperworks.title.paperworks')]))->withInput($request->all());
+
+        }
+
     }
 
     /**

@@ -29,6 +29,9 @@
                         <table class="data-table table table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th>ID</th>
+                                <th>{{ trans('ipaperwork::common.table.title') }}</th>
+                                <th>{{ trans('ipaperwork::common.table.slug') }}</th>
                                 <th>{{ trans('core::core.table.created at') }}</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
@@ -37,6 +40,15 @@
                             <?php if (isset($paperworks)): ?>
                             <?php foreach ($paperworks as $paperwork): ?>
                             <tr>
+                                <td>
+                                    {{ $paperwork->id }}
+                                </td>
+                                <td>
+                                    {{ $paperwork->title }}
+                                </td>
+                                <td>
+                                    {{ $paperwork->slug }}
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.ipaperwork.paperwork.edit', [$paperwork->id]) }}">
                                         {{ $paperwork->created_at }}
@@ -54,6 +66,9 @@
                             </tbody>
                             <tfoot>
                             <tr>
+                                <th>ID</th>
+                                <th>{{ trans('ipaperwork::common.table.title') }}</th>
+                                <th>{{ trans('ipaperwork::common.table.slug') }}</th>
                                 <th>{{ trans('core::core.table.created at') }}</th>
                                 <th>{{ trans('core::core.table.actions') }}</th>
                             </tr>

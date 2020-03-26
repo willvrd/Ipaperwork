@@ -4,10 +4,11 @@ namespace Modules\Ipaperwork\Entities;
 
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Media\Support\Traits\MediaRelation;
 
 class Paperwork extends Model
 {
-    use Translatable;
+    use Translatable, MediaRelation;
 
     protected $table = 'ipaperwork__paperworks';
     public $translatedAttributes = [
