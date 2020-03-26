@@ -92,7 +92,8 @@ class PaperworkController extends AdminBaseController
      */
     public function edit(Paperwork $paperwork)
     {
-        return view('ipaperwork::admin.paperworks.edit', compact('paperwork'));
+        $status = $this->status->lists();
+        return view('ipaperwork::admin.paperworks.edit', compact('paperwork','status'));
     }
 
     /**
@@ -104,10 +105,23 @@ class PaperworkController extends AdminBaseController
      */
     public function update(Paperwork $paperwork, UpdatePaperworkRequest $request)
     {
-        $this->paperwork->update($paperwork, $request->all());
 
-        return redirect()->route('admin.ipaperwork.paperwork.index')
+        \DB::beginTransaction();
+        try {
+            $this->paperwork->update($paperwork, $request->all());
+            \DB::commit();//Commit to Data Base
+
+            return redirect()->route('admin.ipaperwork.paperwork.index')
             ->withSuccess(trans('core::core.messages.resource updated', ['name' => trans('ipaperwork::paperworks.title.paperworks')]));
+
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error($e);
+            return redirect()->back()
+                ->withError(trans('core::core.messages.resource error', ['name' => trans('ipaperwork::paperworks.title.paperworks')]))->withInput($request->all());
+
+        }
+
     }
 
     /**
@@ -118,9 +132,20 @@ class PaperworkController extends AdminBaseController
      */
     public function destroy(Paperwork $paperwork)
     {
-        $this->paperwork->destroy($paperwork);
 
-        return redirect()->route('admin.ipaperwork.paperwork.index')
+        try {
+            
+            $this->paperwork->destroy($paperwork);
+
+            return redirect()->route('admin.ipaperwork.paperwork.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('ipaperwork::paperworks.title.paperworks')]));
+        
+        } catch (\Exception $e) {
+            \Log::error($e);
+            return redirect()->back()
+                ->withError(trans('core::core.messages.resource error', ['name' => trans('ipaperwork::paperworks.title.paperworks')]));
+
+        }
+
     }
 }
