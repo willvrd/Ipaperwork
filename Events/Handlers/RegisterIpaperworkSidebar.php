@@ -37,14 +37,14 @@ class RegisterIpaperworkSidebar implements \Maatwebsite\Sidebar\SidebarExtender
     public function extendWith(Menu $menu)
     {
         $menu->group(trans('core::sidebar.content'), function (Group $group) {
-            $group->item(trans('ipaperwork::ipaperworks.title.ipaperworks'), function (Item $item) {
-                $item->icon('fa fa-copy');
+            $group->item(trans('ipaperwork::common.ipaperwork'), function (Item $item) {
+                $item->icon('fa fa-address-card-o');
                 $item->weight(10);
                 $item->authorize(
                      /* append */
                 );
                 $item->item(trans('ipaperwork::paperworks.title.paperworks'), function (Item $item) {
-                    $item->icon('fa fa-copy');
+                    $item->icon('fa fa-newspaper-o');
                     $item->weight(0);
                     $item->append('admin.ipaperwork.paperwork.create');
                     $item->route('admin.ipaperwork.paperwork.index');
@@ -52,6 +52,7 @@ class RegisterIpaperworkSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('ipaperwork.paperworks.index')
                     );
                 });
+                /*
                 $item->item(trans('ipaperwork::userpaperworks.title.userpaperworks'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
@@ -61,6 +62,7 @@ class RegisterIpaperworkSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('ipaperwork.userpaperworks.index')
                     );
                 });
+                */
 // append
 
 

@@ -17,6 +17,14 @@ class CreateIpaperworkPaperworkTranslationsTable extends Migration
             $table->increments('id');
             // Your translatable fields
 
+            $table->text('summary');
+            $table->text('title');
+            $table->text('description')->nullable();
+            $table->text('slug');
+            $table->text('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keywords')->nullable();
+
             $table->integer('paperwork_id')->unsigned();
             $table->string('locale')->index();
             $table->unique(['paperwork_id', 'locale']);

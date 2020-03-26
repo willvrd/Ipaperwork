@@ -2,14 +2,33 @@
 
 namespace Modules\Ipaperwork\Entities;
 
-use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
 class UserPaperwork extends Model
 {
-    use Translatable;
+  
+    protected $table = 'ipaperwork__user_paperwork';
+    protected $fillable = [
+        'user_id',
+        'paperwork_id',
+        'status',
+        'comment',
+        'options'
+    ];
 
-    protected $table = 'ipaperwork__userpaperworks';
-    public $translatedAttributes = [];
-    protected $fillable = [];
+    protected $casts = [
+        'options' => 'array'
+    ];
+
+    public function getOptionsAttribute($value)
+    {
+        try {
+        return json_decode(json_decode($value));
+        } catch (\Exception $e) {
+        return json_decode($value);
+        }
+    }
+
+    
+
 }

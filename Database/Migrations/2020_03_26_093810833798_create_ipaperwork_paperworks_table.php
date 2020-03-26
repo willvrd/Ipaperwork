@@ -15,7 +15,11 @@ class CreateIpaperworkPaperworksTable extends Migration
         Schema::create('ipaperwork__paperworks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+
             // Your fields
+            $table->integer('status')->default(0)->unsigned();
+            $table->text('options')->nullable();
+
             $table->timestamps();
         });
     }
