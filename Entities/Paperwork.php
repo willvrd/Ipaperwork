@@ -88,18 +88,13 @@ class Paperwork extends Model
         return json_decode(json_encode($response));
     }
 
-    /*
     public function getUrlAttribute()
     {
 
-        if (!isset($this->category->slug)) {
-        $this->category = Category::take(1)->get()->first();
-        }
-
-        return \URL::route(\LaravelLocalization::getCurrentLocale() . '.ievent.event', [$this->category->slug,$this->slug]);
+        return \URL::route(\LaravelLocalization::getCurrentLocale() . '.ipaperwork.paperwork', [$this->slug]);
 
     }
-    */
+   
 
     /**
      * Magic Method modification to allow dynamic relations to other entities.
@@ -110,7 +105,7 @@ class Paperwork extends Model
     public function __call($method, $parameters)
     {
         #i: Convert array to dot notation
-        $config = implode('.', ['asgard.ivent.config.relations.event', $method]);
+        $config = implode('.', ['asgard.ipaperwork.config.relations.paperwork', $method]);
 
         #i: Relation method resolver
         if (config()->has($config)) {
