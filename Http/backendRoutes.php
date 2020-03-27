@@ -37,6 +37,14 @@ $router->group(['prefix' =>'/ipaperwork'], function (Router $router) {
         'uses' => 'PaperworkController@destroy',
         'middleware' => 'can:ipaperwork.paperworks.destroy'
     ]);
+
+    $router->get('userpaperworks/{paperworkId}', [
+        'as' => 'admin.ipaperwork.userpaperwork.index',
+        'uses' => 'UserPaperworkController@index',
+        'middleware' => 'can:ipaperwork.userpaperworks.index'
+    ]);
+
+    /*
     $router->bind('userpaperwork', function ($id) {
         return app('Modules\Ipaperwork\Repositories\UserPaperworkRepository')->find($id);
     });
@@ -70,6 +78,7 @@ $router->group(['prefix' =>'/ipaperwork'], function (Router $router) {
         'uses' => 'UserPaperworkController@destroy',
         'middleware' => 'can:ipaperwork.userpaperworks.destroy'
     ]);
+    */
 // append
 
 

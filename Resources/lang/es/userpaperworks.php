@@ -6,7 +6,7 @@ return [
     'edit resource' => 'Edit userpaperworks',
     'destroy resource' => 'Destroy userpaperworks',
     'title' => [
-        'userpaperworks' => 'UserPaperwork',
+        'userpaperworks' => 'Cotizaciones',
         'create userpaperwork' => 'Create a userpaperwork',
         'edit userpaperwork' => 'Edit a userpaperwork',
     ],

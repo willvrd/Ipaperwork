@@ -57,6 +57,9 @@
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('admin.ipaperwork.paperwork.edit', [$paperwork->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+
+                                        <a href="{{ route('admin.ipaperwork.userpaperwork.index', [$paperwork->id]) }}" class="btn btn-default btn-flat btn-success" title="{{trans('ipaperwork::userpaperworks.title.userpaperworks')}}"><i class="fa fa-users fa-inverse"></i></a>
+
                                         <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.ipaperwork.paperwork.destroy', [$paperwork->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>

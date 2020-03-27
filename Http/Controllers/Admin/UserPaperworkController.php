@@ -10,18 +10,28 @@ use Modules\Ipaperwork\Http\Requests\UpdateUserPaperworkRequest;
 use Modules\Ipaperwork\Repositories\UserPaperworkRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 
+use Modules\Ipaperwork\Repositories\PaperworkRepository;
+
 class UserPaperworkController extends AdminBaseController
 {
     /**
      * @var UserPaperworkRepository
      */
     private $userpaperwork;
+    /**
+     * @var PaperworkRepository
+     */
+    private $paperwork;
 
-    public function __construct(UserPaperworkRepository $userpaperwork)
+    public function __construct(
+        UserPaperworkRepository $userpaperwork,
+        PaperworkRepository $paperwork
+    )
     {
         parent::__construct();
 
         $this->userpaperwork = $userpaperwork;
+        $this->paperwork = $paperwork;
     }
 
     /**
@@ -29,11 +39,13 @@ class UserPaperworkController extends AdminBaseController
      *
      * @return Response
      */
-    public function index()
+    public function index($paperworkId)
     {
+        
         //$userpaperworks = $this->userpaperwork->all();
+        $paperwork = $this->paperwork->find($paperworkId);
 
-        return view('ipaperwork::admin.userpaperworks.index', compact(''));
+        return view('ipaperwork::admin.userpaperworks.index', compact('paperwork'));
     }
 
     /**

@@ -14,12 +14,21 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
-                <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
-                    <a href="{{ route('admin.ipaperwork.userpaperwork.create') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px;">
-                        <i class="fa fa-pencil"></i> {{ trans('ipaperwork::userpaperworks.button.create userpaperwork') }}
-                    </a>
+                <div class="col-sm-6">
+                    <h4 class="main-title">
+                        {{ trans('ipaperwork::paperworks.singular') }}:
+                        {{$paperwork->title}}
+                    </h4>
+                </div>
+                <div class="col-sm-6">
+                    <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
+                        <a href="{{ route('admin.ipaperwork.paperwork.index') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px;">
+                            <i class="fa fa-arrow-left"></i> Volver a {{ trans('ipaperwork::paperworks.title.paperworks') }}
+                        </a>
+                    </div>
                 </div>
             </div>
+            
             <div class="box box-primary">
                 <div class="box-header">
                 </div>
@@ -29,6 +38,8 @@
                         <table class="data-table table table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th>ID</th>
+                                <th>Status</th>
                                 <th>{{ trans('core::core.table.created at') }}</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
@@ -37,6 +48,12 @@
                             <?php if (isset($userpaperworks)): ?>
                             <?php foreach ($userpaperworks as $userpaperwork): ?>
                             <tr>
+                                <td>
+                                    {{$userpaperworks->id}}
+                                </td>
+                                <td>
+                                    {{$userpaperworks->status}}
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.ipaperwork.userpaperwork.edit', [$userpaperwork->id]) }}">
                                         {{ $userpaperwork->created_at }}
@@ -54,6 +71,8 @@
                             </tbody>
                             <tfoot>
                             <tr>
+                                <th>ID</th>
+                                <th>Status</th>
                                 <th>{{ trans('core::core.table.created at') }}</th>
                                 <th>{{ trans('core::core.table.actions') }}</th>
                             </tr>
@@ -79,16 +98,18 @@
     </dl>
 @stop
 
+@section('styles')
+
+<style type="text/css">
+    .main-title{
+        margin-top: 0px;
+    }
+</style>
+
+@stop
+
 @push('js-stack')
-    <script type="text/javascript">
-        $( document ).ready(function() {
-            $(document).keypressAction({
-                actions: [
-                    { key: 'c', route: "<?= route('admin.ipaperwork.userpaperwork.create') ?>" }
-                ]
-            });
-        });
-    </script>
+
     <?php $locale = locale(); ?>
     <script type="text/javascript">
         $(function () {
