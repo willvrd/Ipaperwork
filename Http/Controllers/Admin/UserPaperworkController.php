@@ -11,6 +11,7 @@ use Modules\Ipaperwork\Repositories\UserPaperworkRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 
 use Modules\Ipaperwork\Repositories\PaperworkRepository;
+use Modules\Ipaperwork\Entities\StatusUserPaperwork;
 
 class UserPaperworkController extends AdminBaseController
 {
@@ -22,16 +23,23 @@ class UserPaperworkController extends AdminBaseController
      * @var PaperworkRepository
      */
     private $paperwork;
+     /**
+     * @var Status
+     */
+    private $statusUserPaperwork;
+
 
     public function __construct(
         UserPaperworkRepository $userpaperwork,
-        PaperworkRepository $paperwork
+        PaperworkRepository $paperwork,
+        StatusUserPaperwork $statusUserPaperwork
     )
     {
         parent::__construct();
 
         $this->userpaperwork = $userpaperwork;
         $this->paperwork = $paperwork;
+        $this->statusUserPaperwork = $statusUserPaperwork;
     }
 
     /**
@@ -44,8 +52,9 @@ class UserPaperworkController extends AdminBaseController
         
         //$userpaperworks = $this->userpaperwork->all();
         $paperwork = $this->paperwork->find($paperworkId);
-
-        return view('ipaperwork::admin.userpaperworks.index', compact('paperwork'));
+        $statusUserPaperwork = $this->statusUserPaperwork->lists();
+      
+        return view('ipaperwork::admin.userpaperworks.index', compact('paperwork','statusUserPaperwork'));
     }
 
     /**
