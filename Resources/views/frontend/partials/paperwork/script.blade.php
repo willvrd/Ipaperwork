@@ -16,24 +16,20 @@
 {
 	"@context": "http://schema.org",
 	"@type": "BlogPosting",{{--NewsArticle--}}
-	"@id":"{{$post->url}}",
+	"@id":"{{$paperwork->url}}",
 	"mainEntityOfPage": {
 		"@type": "WebPage",
-		"@id": "{{$post->url}}"
+		"@id": "{{$paperwork->url}}"
 	},
-	"headline": "{{$post->title}}",
-	"description": "{{$post->summary}}",
+	"headline": "{{$paperwork->title}}",
+	"description": "{{$paperwork->summary}}",
 	"image": {
 			"@type": "ImageObject",
-			"url": "{{$post->mainImage->path}}"
+			"url": "{{$paperwork->mainImage->path}}"
 		},
-	"datePublished": "{{$post->created_at}}",
-	"dateModified": "{{$post->updated_at}}",
-	"articleBody":"{{$post->summary}}",
-	"author": {
-		"@type": "Person",
-		"name": "{{$post->user->present()->fullName()}}"
-	},
+	"datePublished": "{{$paperwork->created_at}}",
+	"dateModified": "{{$paperwork->updated_at}}",
+	"articleBody":"{{$paperwork->summary}}",
 	"publisher": {
 		"@type": "Organization",
 		"name": "@setting('core::site-name')",

@@ -41,6 +41,7 @@ class PublicController extends BasePublicController
            return view($tpl, compact('paperworks'));
            
         }catch (\Exception $e){
+            \Log::error($e);
             return abort(404);
         }
 
@@ -57,11 +58,12 @@ class PublicController extends BasePublicController
 
             if (view()->exists($ttpl)) $tpl = $ttpl;
 
-            $paperwork = $this->event->findBySlug($slug);
+            $paperwork = $this->paperwork->findBySlug($slug);
 
             return view($tpl, compact('paperwork'));
 
         }catch (\Exception $e){
+            \Log::error($e);
             return abort(404);
         }
        
