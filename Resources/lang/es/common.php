@@ -33,6 +33,7 @@ return [
         'description min 2'=>'La descripción debe contener mínimo dos caracteres',
         'summary is required'=>'La Descripciòn Corta requerida',
         'summary min 2'=>'La Descripciòn Corta debe contener mÃ­nimo dos caracteres',
+        'error' => 'Ha ocurrido un error',
     ],
     'validation' => [
     ],

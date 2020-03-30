@@ -16,6 +16,8 @@ return [
     'table' => [
     ],
     'form' => [
+        'user' => 'Usuario',
+        'comment' => 'Comentario',
     ],
     'messages' => [
     ],

@@ -11,6 +11,15 @@
 @stop
 
 @section('content')
+@include('ipaperwork::admin.userpaperworks.partials.modal-update')
+
+<div id="cap" style="display: none;">
+    <div class="loading-del">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
@@ -39,6 +48,8 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>{{trans('ipaperwork::userpaperworks.form.user')}}</th>
+                                <th>Email</th>
                                 <th>Status</th>
                                 <th>{{ trans('core::core.table.created at') }}</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
@@ -49,20 +60,34 @@
                             <?php foreach ($userpaperworks as $userpaperwork): ?>
                             <tr>
                                 <td>
-                                    {{$userpaperworks->id}}
+                                    {{$userpaperwork->id}}
                                 </td>
                                 <td>
-                                    {{$userpaperworks->status}}
+                                    {{$userpaperwork->user->present()->fullname}}
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.ipaperwork.userpaperwork.edit', [$userpaperwork->id]) }}">
-                                        {{ $userpaperwork->created_at }}
-                                    </a>
+                                    {{$userpaperwork->user->email}}
+                                </td>
+                                <td>
+                                    <span class="label {{ $userpaperwork->present()->statusLabelClass}}">
+                                        {{ $userpaperwork->present()->status}}
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ $userpaperwork->created_at }}
                                 </td>
                                 <td>
                                     <div class="btn-group">
+                                        <button 
+                                            title="Editar" 
+                                            onclick="editUserPaperwork({!!$userpaperwork->id!!})" 
+                                            type="button" class="btn btn-sm btn-info btn-flat"><i class="fa fa-edit"></i></button>
+                                        {{--
                                         <a href="{{ route('admin.ipaperwork.userpaperwork.edit', [$userpaperwork->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                        --}}
+                                        {{--
                                         <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.ipaperwork.userpaperwork.destroy', [$userpaperwork->id]) }}"><i class="fa fa-trash"></i></button>
+                                        --}}
                                     </div>
                                 </td>
                             </tr>
@@ -72,6 +97,8 @@
                             <tfoot>
                             <tr>
                                 <th>ID</th>
+                                <th>{{trans('ipaperwork::userpaperworks.form.user')}}</th>
+                                <th>Email</th>
                                 <th>Status</th>
                                 <th>{{ trans('core::core.table.created at') }}</th>
                                 <th>{{ trans('core::core.table.actions') }}</th>
@@ -104,6 +131,22 @@
     .main-title{
         margin-top: 0px;
     }
+    #cap{
+    	background: rgba(255,71,0,0.13);
+    	position: absolute;
+    	width: 100%;
+    	height: 100%;
+    	z-index: 9999;
+    	top: 0;
+    	left: 0;
+    }
+
+    #cap .loading-del{
+    	position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translate(-50%, -50%);
+    }
 </style>
 
 @stop
@@ -112,6 +155,9 @@
 
     <?php $locale = locale(); ?>
     <script type="text/javascript">
+
+        var userPaperworkId = "";
+
         $(function () {
             $('.data-table').dataTable({
                 "paginate": true,
@@ -126,5 +172,99 @@
                 }
             });
         });
+
+        function editUserPaperwork(id){
+            
+            userPaperworkId = id
+            var url = '{{ url('api/ipaperwork/v1/userpaperworks') }}' + '/' + userPaperworkId;
+            
+            $.ajax({
+                url:url,
+                type:'GET',
+                headers:{'X-CSRF-TOKEN': "{{csrf_token()}}"},
+                dataType:"json",
+                data:{'include':'user'},
+                beforeSend: function(){ 
+                    $("#cap").css("display","block");
+                },
+                success:function(result){
+                   
+                    if(result){
+                        
+                        $('#userFullNameModal').val(result.data.user.fullName);
+                        $('#userEmailModal').val(result.data.user.email);
+                        $('#commentModal').val(result.data.comment);
+                        $('#statusModal').val(result.data.status);
+                        $('#modal-update').modal();
+                        
+                    }else{
+                        alert("{{trans('ipaperwork::common.messages.error')}}")
+                        console.log('ERROR - GET USER PAPERWORK');
+                    }
+                    $("#cap").css("display","none");
+                    
+                },
+                error:function(error){
+                    $("#cap").css("display","none");
+                    alert("{{trans('ipaperwork::common.messages.error')}}")
+                    console.log(error);
+                }
+            });//ajax
+            
+        }
+
+        function updateUserPaperwork(){
+
+            var url = '{{ url('api/ipaperwork/v1/userpaperworks') }}' + '/' + userPaperworkId;
+
+            var attUpdate = {};
+            attUpdate["comment"] = $('#commentModal').val();
+            attUpdate["status"] = $('#statusModal').val();
+
+            $.ajax({
+                url:url,
+                type:'PUT',
+                headers:{'X-CSRF-TOKEN': "{{csrf_token()}}"},
+                dataType:"json",
+                data:{'attributes':attUpdate},
+                beforeSend: function(){ 
+                    $("#cap").css("display","block");
+                },
+                success:function(result){
+                    if(result){
+                        
+                        $('#userFullNameModal').val("");
+                        $('#userEmailModal').val("");
+                        $('#commentModal').val("");
+                        $('#statusModal').val("");
+                       
+                        $('#modal-update').modal("hide");
+                        location.reload();
+                        
+                    }else{
+                        alert("{{trans('ipaperwork::common.messages.error')}}")
+                        console.log('ERROR - PUT USER PAPERWORK');
+                    }
+                    $("#cap").css("display","none");
+                },
+                error:function(error){
+                    $("#cap").css("display","none");
+                    alert("{{trans('ipaperwork::common.messages.error')}}")
+                    console.log(error);
+                }
+            });//ajax
+            
+        }
+
+        function cancelUserPaperwork(){
+
+            $('#userFullNameModal').val("");
+            $('#userEmailModal').val("");
+            $('#commentModal').val("");
+            $('#statusModal').val("");
+
+        }
+
+
     </script>
 @endpush

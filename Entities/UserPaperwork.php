@@ -39,6 +39,11 @@ class UserPaperwork extends Model
         return $this->belongsTo(Paperwork::class);
     }
 
+    public function user(){
+        $driver = config('asgard.user.config.driver');
+        return $this->belongsTo("Modules\\User\\Entities\\{$driver}\\User",'user_id');
+    }
+
     
 
 }

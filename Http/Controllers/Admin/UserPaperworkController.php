@@ -50,11 +50,12 @@ class UserPaperworkController extends AdminBaseController
     public function index($paperworkId)
     {
         
-        //$userpaperworks = $this->userpaperwork->all();
+        $attributes = array("paperwork_id"=>$paperworkId);
+        $userpaperworks = $this->userpaperwork->getByAttributes($attributes);
         $paperwork = $this->paperwork->find($paperworkId);
         $statusUserPaperwork = $this->statusUserPaperwork->lists();
       
-        return view('ipaperwork::admin.userpaperworks.index', compact('paperwork','statusUserPaperwork'));
+        return view('ipaperwork::admin.userpaperworks.index', compact('userpaperworks','paperwork','statusUserPaperwork'));
     }
 
     /**

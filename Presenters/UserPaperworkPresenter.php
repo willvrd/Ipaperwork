@@ -23,15 +23,15 @@ class UserPaperworkPresenter extends Presenter
     public function statusLabelClass(){
         switch ($this->entity->status){
 
-            case Status::DENIED:
+            case StatusUserPaperwork::DENIED:
                 return 'bg-red';
                 break;
 
-            case Status::APPROVED:
+            case StatusUserPaperwork::APPROVED:
                 return 'bg-green';
                 break;
 
-            case Status::PENDING:
+            case StatusUserPaperwork::PENDING:
                 return 'bg-yellow';
                 break;
 
