@@ -42,6 +42,11 @@
                 </select>
               </div>
 
+              <div class="form-group ">
+                <label for="createdAtModal">{{ trans('core::core.table.created at') }}</label>
+                <input type="text"  class="form-control" name="createdAtModal" id="createdAtModal"  value=""  readonly>
+              </div>
+
             </div>
           </div>
         </div>

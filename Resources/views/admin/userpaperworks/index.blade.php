@@ -195,6 +195,7 @@
                         $('#userEmailModal').val(result.data.user.email);
                         $('#commentModal').val(result.data.comment);
                         $('#statusModal').val(result.data.status);
+                        $('#createdAtModal').val(result.data.createdAt);
                         $('#modal-update').modal();
                         
                     }else{
@@ -233,11 +234,7 @@
                 success:function(result){
                     if(result){
                         
-                        $('#userFullNameModal').val("");
-                        $('#userEmailModal').val("");
-                        $('#commentModal').val("");
-                        $('#statusModal').val("");
-                       
+                        cleanVars();
                         $('#modal-update').modal("hide");
                         location.reload();
                         
@@ -257,12 +254,15 @@
         }
 
         function cancelUserPaperwork(){
+           cleanVars();
+        }
 
+        function cleanVars(){
             $('#userFullNameModal').val("");
             $('#userEmailModal').val("");
             $('#commentModal').val("");
             $('#statusModal').val("");
-
+            $('#createdAtModal').val("");
         }
 
 
