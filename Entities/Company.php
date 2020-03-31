@@ -18,6 +18,10 @@ class Company extends Model
         'options' => 'array'
     ];
 
+    public function paperworks(){
+        return $this->belongsToMany(Paperwork::class,'ipaperwork__company_paperwork');
+    }
+
     public function getOptionsAttribute($value)
     {
         try {

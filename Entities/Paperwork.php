@@ -38,6 +38,15 @@ class Paperwork extends Model
         'options' => 'array'
     ];
 
+
+    public function users(){
+        return $this->belongsToMany(UserPaperwork::class, 'ipaperwork__user_paperwork');
+    }
+
+    public function companies(){
+        return $this->belongsToMany(Company::class, 'ipaperwork__company_paperwork');
+    }
+
     public function getOptionsAttribute($value)
     {
         try {
@@ -45,10 +54,6 @@ class Paperwork extends Model
         } catch (\Exception $e) {
         return json_decode($value);
         }
-    }
-
-    public function users(){
-        return $this->belongsToMany(UserPaperwork::class, 'ipaperwork__user_paperwork');
     }
 
     public function getMainImageAttribute()
