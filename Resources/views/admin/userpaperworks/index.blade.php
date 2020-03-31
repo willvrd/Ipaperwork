@@ -11,7 +11,9 @@
 @stop
 
 @section('content')
+{{--
 @include('ipaperwork::admin.userpaperworks.partials.modal-update')
+--}}
 
 <div id="cap" style="display: none;">
     <div class="loading-del">
@@ -23,19 +25,15 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
-                <div class="col-sm-6">
-                    <h4 class="main-title">
-                        {{ trans('ipaperwork::paperworks.singular') }}:
-                        {{$paperwork->title}}
-                    </h4>
+                
+                <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
+                    {{--
+                    <a href="{{ route('admin.ipaperwork.paperwork.create') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px;">
+                        <i class="fa fa-pencil"></i> {{ trans('ipaperwork::paperworks.button.create paperwork') }}
+                    </a>
+                    --}}
                 </div>
-                <div class="col-sm-6">
-                    <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
-                        <a href="{{ route('admin.ipaperwork.paperwork.index') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px;">
-                            <i class="fa fa-arrow-left"></i> Volver a {{ trans('ipaperwork::paperworks.title.paperworks') }}
-                        </a>
-                    </div>
-                </div>
+                
             </div>
             
             <div class="box box-primary">
@@ -48,7 +46,7 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>{{trans('ipaperwork::userpaperworks.form.user')}}</th>
+                                <th>{{trans('ipaperwork::paperworks.singular')}}</th>
                                 <th>Email</th>
                                 <th>Status</th>
                                 <th>{{ trans('core::core.table.created at') }}</th>
@@ -63,7 +61,7 @@
                                     {{$userpaperwork->id}}
                                 </td>
                                 <td>
-                                    {{$userpaperwork->user->present()->fullname}}
+                                    {{$userpaperwork->paperwork->title}}
                                 </td>
                                 <td>
                                     {{$userpaperwork->user->email}}
@@ -78,13 +76,15 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
+                                        {{--
                                         <button 
                                             title="Editar" 
                                             onclick="editUserPaperwork({!!$userpaperwork->id!!})" 
                                             type="button" class="btn btn-sm btn-info btn-flat"><i class="fa fa-edit"></i></button>
-                                        {{--
-                                        <a href="{{ route('admin.ipaperwork.userpaperwork.edit', [$userpaperwork->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
                                         --}}
+                                        
+                                        <a href="{{ route('admin.ipaperwork.userpaperwork.edit', [$userpaperwork->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                       
                                         {{--
                                         <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.ipaperwork.userpaperwork.destroy', [$userpaperwork->id]) }}"><i class="fa fa-trash"></i></button>
                                         --}}
@@ -97,7 +97,7 @@
                             <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>{{trans('ipaperwork::userpaperworks.form.user')}}</th>
+                                <th>{{trans('ipaperwork::paperworks.singular')}}</th>
                                 <th>Email</th>
                                 <th>Status</th>
                                 <th>{{ trans('core::core.table.created at') }}</th>

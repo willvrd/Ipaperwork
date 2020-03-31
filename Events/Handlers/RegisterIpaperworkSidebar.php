@@ -52,9 +52,9 @@ class RegisterIpaperworkSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('ipaperwork.paperworks.index')
                     );
                 });
-                /*
+               
                 $item->item(trans('ipaperwork::userpaperworks.title.userpaperworks'), function (Item $item) {
-                    $item->icon('fa fa-copy');
+                    $item->icon('fa fa-address-card-o');
                     $item->weight(0);
                     $item->append('admin.ipaperwork.userpaperwork.create');
                     $item->route('admin.ipaperwork.userpaperwork.index');
@@ -62,7 +62,7 @@ class RegisterIpaperworkSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('ipaperwork.userpaperworks.index')
                     );
                 });
-                */
+                
 // append
 
 

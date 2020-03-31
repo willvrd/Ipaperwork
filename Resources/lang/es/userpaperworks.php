@@ -1,17 +1,17 @@
 <?php
 
 return [
-    'list resource' => 'List userpaperworks',
-    'create resource' => 'Create userpaperworks',
-    'edit resource' => 'Edit userpaperworks',
-    'destroy resource' => 'Destroy userpaperworks',
+    'list resource' => 'Listar trámites',
+    'create resource' => 'Crear trámites',
+    'edit resource' => 'Editar trámites',
+    'destroy resource' => 'Eliminar trámites',
     'title' => [
-        'userpaperworks' => 'Cotizaciones',
-        'create userpaperwork' => 'Create a userpaperwork',
-        'edit userpaperwork' => 'Edit a userpaperwork',
+        'userpaperworks' => 'Trámites',
+        'create userpaperwork' => 'Crear un trámite',
+        'edit userpaperwork' => 'Editar un trámite',
     ],
     'button' => [
-        'create userpaperwork' => 'Create a userpaperwork',
+        'create userpaperwork' => 'Crear un trámite',
     ],
     'table' => [
     ],

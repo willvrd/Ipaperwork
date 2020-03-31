@@ -1,18 +1,18 @@
 <?php
 
 return [
-    'singular' => 'Trámite',
-    'list resource' => 'Listar trámites',
-    'create resource' => 'Crear trámites',
-    'edit resource' => 'Editar trámites',
-    'destroy resource' => 'Eliminar trámites',
+    'singular' => 'Tipo de Trámite',
+    'list resource' => 'Listar tipos de trámites',
+    'create resource' => 'Crear tipo de trámites',
+    'edit resource' => 'Editar tipo de trámites',
+    'destroy resource' => 'Eliminar tipo de trámites',
     'title' => [
-        'paperworks' => 'Trámites',
-        'create paperwork' => 'Crear un trámite',
-        'edit paperwork' => 'Editar un trámite',
+        'paperworks' => 'Tipo de Trámites',
+        'create paperwork' => 'Crear un tipo de trámite',
+        'edit paperwork' => 'Editar un tipo de trámite',
     ],
     'button' => [
-        'create paperwork' => 'Crear un trámite',
+        'create paperwork' => 'Crear un tipo de trámite',
     ],
     'table' => [
     ],
