@@ -44,6 +44,11 @@ class UserPaperwork extends Model
         return $this->belongsTo("Modules\\User\\Entities\\{$driver}\\User",'user_id');
     }
 
+    public function histories()
+    {
+        return $this->hasMany(UserPaperworkHistory::class);
+    }
+
     
 
 }
