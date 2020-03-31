@@ -13,7 +13,14 @@ return [
         'edit' => 'ipaperwork::userpaperworks.edit resource',
         'destroy' => 'ipaperwork::userpaperworks.destroy resource',
     ],
+    'ipaperwork.userpaperworkhistories' => [
+        'index' => 'ipaperwork::userpaperworkhistories.list resource',
+        'create' => 'ipaperwork::userpaperworkhistories.create resource',
+        'edit' => 'ipaperwork::userpaperworkhistories.edit resource',
+        'destroy' => 'ipaperwork::userpaperworkhistories.destroy resource',
+    ],
 // append
+
 
 
 ];

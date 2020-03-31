@@ -63,7 +63,19 @@ class RegisterIpaperworkSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                     );
                 });
                 
+                /*
+                $item->item(trans('ipaperwork::userpaperworkhistories.title.userpaperworkhistories'), function (Item $item) {
+                    $item->icon('fa fa-copy');
+                    $item->weight(0);
+                    $item->append('admin.ipaperwork.userpaperworkhistory.create');
+                    $item->route('admin.ipaperwork.userpaperworkhistory.index');
+                    $item->authorize(
+                        $this->auth->hasAccess('ipaperwork.userpaperworkhistories.index')
+                    );
+                });
+                */
 // append
+
 
 
             });

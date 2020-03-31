@@ -31,7 +31,9 @@ class IpaperworkServiceProvider extends ServiceProvider
         $this->app['events']->listen(LoadingBackendTranslations::class, function (LoadingBackendTranslations $event) {
             $event->load('paperworks', array_dot(trans('ipaperwork::paperworks')));
             $event->load('userpaperworks', array_dot(trans('ipaperwork::userpaperworks')));
+            $event->load('userpaperworkhistories', array_dot(trans('ipaperwork::userpaperworkhistories')));
             // append translations
+
 
 
         });
@@ -80,7 +82,20 @@ class IpaperworkServiceProvider extends ServiceProvider
                 return new \Modules\Ipaperwork\Repositories\Cache\CacheUserPaperworkDecorator($repository);
             }
         );
+        $this->app->bind(
+            'Modules\Ipaperwork\Repositories\UserPaperworkHistoryRepository',
+            function () {
+                $repository = new \Modules\Ipaperwork\Repositories\Eloquent\EloquentUserPaperworkHistoryRepository(new \Modules\Ipaperwork\Entities\UserPaperworkHistory());
+
+                if (! config('app.cache')) {
+                    return $repository;
+                }
+
+                return new \Modules\Ipaperwork\Repositories\Cache\CacheUserPaperworkHistoryDecorator($repository);
+            }
+        );
 // add bindings
+
 
 
     }

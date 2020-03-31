@@ -80,7 +80,41 @@ $router->group(['prefix' =>'/ipaperwork'], function (Router $router) {
         'middleware' => 'can:ipaperwork.userpaperworks.destroy'
     ]);
     
+    $router->bind('userpaperworkhistory', function ($id) {
+        return app('Modules\Ipaperwork\Repositories\UserPaperworkHistoryRepository')->find($id);
+    });
+    $router->get('userpaperworkhistories', [
+        'as' => 'admin.ipaperwork.userpaperworkhistory.index',
+        'uses' => 'UserPaperworkHistoryController@index',
+        'middleware' => 'can:ipaperwork.userpaperworkhistories.index'
+    ]);
+    $router->get('userpaperworkhistories/create', [
+        'as' => 'admin.ipaperwork.userpaperworkhistory.create',
+        'uses' => 'UserPaperworkHistoryController@create',
+        'middleware' => 'can:ipaperwork.userpaperworkhistories.create'
+    ]);
+    $router->post('userpaperworkhistories', [
+        'as' => 'admin.ipaperwork.userpaperworkhistory.store',
+        'uses' => 'UserPaperworkHistoryController@store',
+        'middleware' => 'can:ipaperwork.userpaperworkhistories.create'
+    ]);
+    $router->get('userpaperworkhistories/{userpaperworkhistory}/edit', [
+        'as' => 'admin.ipaperwork.userpaperworkhistory.edit',
+        'uses' => 'UserPaperworkHistoryController@edit',
+        'middleware' => 'can:ipaperwork.userpaperworkhistories.edit'
+    ]);
+    $router->put('userpaperworkhistories/{userpaperworkhistory}', [
+        'as' => 'admin.ipaperwork.userpaperworkhistory.update',
+        'uses' => 'UserPaperworkHistoryController@update',
+        'middleware' => 'can:ipaperwork.userpaperworkhistories.edit'
+    ]);
+    $router->delete('userpaperworkhistories/{userpaperworkhistory}', [
+        'as' => 'admin.ipaperwork.userpaperworkhistory.destroy',
+        'uses' => 'UserPaperworkHistoryController@destroy',
+        'middleware' => 'can:ipaperwork.userpaperworkhistories.destroy'
+    ]);
 // append
+
 
 
 });
