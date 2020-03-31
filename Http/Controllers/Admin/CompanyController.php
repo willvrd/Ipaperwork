@@ -10,18 +10,27 @@ use Modules\Ipaperwork\Http\Requests\UpdateCompanyRequest;
 use Modules\Ipaperwork\Repositories\CompanyRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 
+use Modules\Ipaperwork\Repositories\PaperworkRepository;
+
 class CompanyController extends AdminBaseController
 {
     /**
      * @var CompanyRepository
      */
     private $company;
+    /**
+     * @var PaperworkRepository
+     */
+    private $paperwork;
 
-    public function __construct(CompanyRepository $company)
-    {
+    public function __construct(
+        CompanyRepository $company,
+        PaperworkRepository $paperwork
+    ){
         parent::__construct();
 
         $this->company = $company;
+        $this->paperwork = $paperwork;
     }
 
     /**
@@ -31,9 +40,8 @@ class CompanyController extends AdminBaseController
      */
     public function index()
     {
-        //$companies = $this->company->all();
-
-        return view('ipaperwork::admin.companies.index', compact(''));
+        $companies = $this->company->all();
+        return view('ipaperwork::admin.companies.index', compact('companies'));
     }
 
     /**
@@ -43,7 +51,8 @@ class CompanyController extends AdminBaseController
      */
     public function create()
     {
-        return view('ipaperwork::admin.companies.create');
+        $paperworks = $this->paperwork->all();
+        return view('ipaperwork::admin.companies.create',compact('paperworks'));
     }
 
     /**
@@ -54,10 +63,25 @@ class CompanyController extends AdminBaseController
      */
     public function store(CreateCompanyRequest $request)
     {
-        $this->company->create($request->all());
 
-        return redirect()->route('admin.ipaperwork.company.index')
+        \DB::beginTransaction();
+        try {
+
+            $this->company->create($request->all());
+            \DB::commit();//Commit to Data Base
+
+            return redirect()->route('admin.ipaperwork.company.index')
             ->withSuccess(trans('core::core.messages.resource created', ['name' => trans('ipaperwork::companies.title.companies')]));
+
+        } catch (\Exception $e) {
+            
+            \DB::rollback();
+            \Log::error($e);
+            return redirect()->back()
+                ->withError(trans('core::core.messages.resource error', ['name' => trans('ipaperwork::companies.title.companies')]))->withInput($request->all());
+
+        }
+
     }
 
     /**
@@ -68,7 +92,8 @@ class CompanyController extends AdminBaseController
      */
     public function edit(Company $company)
     {
-        return view('ipaperwork::admin.companies.edit', compact('company'));
+        $paperworks = $this->paperwork->all();
+        return view('ipaperwork::admin.companies.edit', compact('company','paperworks'));
     }
 
     /**
@@ -80,10 +105,23 @@ class CompanyController extends AdminBaseController
      */
     public function update(Company $company, UpdateCompanyRequest $request)
     {
-        $this->company->update($company, $request->all());
 
-        return redirect()->route('admin.ipaperwork.company.index')
+        \DB::beginTransaction();
+        try {
+            $this->company->update($company, $request->all());
+            \DB::commit();//Commit to Data Base
+
+            return redirect()->route('admin.ipaperwork.company.index')
             ->withSuccess(trans('core::core.messages.resource updated', ['name' => trans('ipaperwork::companies.title.companies')]));
+
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error($e);
+            return redirect()->back()
+                ->withError(trans('core::core.messages.resource error', ['name' => trans('ipaperwork::companies.title.companies')]))->withInput($request->all());
+
+        }
+
     }
 
     /**
@@ -94,9 +132,20 @@ class CompanyController extends AdminBaseController
      */
     public function destroy(Company $company)
     {
-        $this->company->destroy($company);
 
-        return redirect()->route('admin.ipaperwork.company.index')
+        try {
+            
+            $this->company->destroy($company);
+
+            return redirect()->route('admin.ipaperwork.company.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('ipaperwork::companies.title.companies')]));
+        
+        } catch (\Exception $e) {
+            \Log::error($e);
+            return redirect()->back()
+                ->withError(trans('core::core.messages.resource error', ['name' => trans('ipaperwork::companies.title.companies')]));
+
+        }
+
     }
 }

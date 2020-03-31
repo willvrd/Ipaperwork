@@ -2,6 +2,7 @@
 
 return [
     'singular' => 'Tipo de Trámite',
+    'plural' => 'Tipos de trámite',
     'list resource' => 'Listar tipos de trámites',
     'create resource' => 'Crear tipo de trámites',
     'edit resource' => 'Editar tipo de trámites',

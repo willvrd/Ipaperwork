@@ -8,7 +8,9 @@ class CreateCompanyRequest extends BaseFormRequest
 {
     public function rules()
     {
-        return [];
+        return [
+            'title' => 'required|min:2'
+        ];
     }
 
     public function translationRules()
@@ -23,7 +25,10 @@ class CreateCompanyRequest extends BaseFormRequest
 
     public function messages()
     {
-        return [];
+        return [
+            'title.required' => trans('iblog::common.messages.title is required'),
+            'title.min:2'=> trans('iblog::common.messages.title min 2 '),
+        ];
     }
 
     public function translationMessages()
