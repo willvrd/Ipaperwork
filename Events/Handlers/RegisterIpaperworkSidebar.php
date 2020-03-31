@@ -52,6 +52,16 @@ class RegisterIpaperworkSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('ipaperwork.paperworks.index')
                     );
                 });
+
+                $item->item(trans('ipaperwork::companies.title.companies'), function (Item $item) {
+                    $item->icon('fa fa-bookmark-o');
+                    $item->weight(0);
+                    $item->append('admin.ipaperwork.company.create');
+                    $item->route('admin.ipaperwork.company.index');
+                    $item->authorize(
+                        $this->auth->hasAccess('ipaperwork.companies.index')
+                    );
+                });
                
                 $item->item(trans('ipaperwork::userpaperworks.title.userpaperworks'), function (Item $item) {
                     $item->icon('fa fa-address-card-o');
@@ -74,7 +84,9 @@ class RegisterIpaperworkSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                     );
                 });
                 */
+               
 // append
+
 
 
 

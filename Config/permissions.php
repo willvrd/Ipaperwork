@@ -19,7 +19,14 @@ return [
         'edit' => 'ipaperwork::userpaperworkhistories.edit resource',
         'destroy' => 'ipaperwork::userpaperworkhistories.destroy resource',
     ],
+    'ipaperwork.companies' => [
+        'index' => 'ipaperwork::companies.list resource',
+        'create' => 'ipaperwork::companies.create resource',
+        'edit' => 'ipaperwork::companies.edit resource',
+        'destroy' => 'ipaperwork::companies.destroy resource',
+    ],
 // append
+
 
 
 

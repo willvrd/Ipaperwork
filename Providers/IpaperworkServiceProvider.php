@@ -32,7 +32,9 @@ class IpaperworkServiceProvider extends ServiceProvider
             $event->load('paperworks', array_dot(trans('ipaperwork::paperworks')));
             $event->load('userpaperworks', array_dot(trans('ipaperwork::userpaperworks')));
             $event->load('userpaperworkhistories', array_dot(trans('ipaperwork::userpaperworkhistories')));
+            $event->load('companies', array_dot(trans('ipaperwork::companies')));
             // append translations
+
 
 
 
@@ -94,7 +96,20 @@ class IpaperworkServiceProvider extends ServiceProvider
                 return new \Modules\Ipaperwork\Repositories\Cache\CacheUserPaperworkHistoryDecorator($repository);
             }
         );
+        $this->app->bind(
+            'Modules\Ipaperwork\Repositories\CompanyRepository',
+            function () {
+                $repository = new \Modules\Ipaperwork\Repositories\Eloquent\EloquentCompanyRepository(new \Modules\Ipaperwork\Entities\Company());
+
+                if (! config('app.cache')) {
+                    return $repository;
+                }
+
+                return new \Modules\Ipaperwork\Repositories\Cache\CacheCompanyDecorator($repository);
+            }
+        );
 // add bindings
+
 
 
 

@@ -113,7 +113,41 @@ $router->group(['prefix' =>'/ipaperwork'], function (Router $router) {
         'uses' => 'UserPaperworkHistoryController@destroy',
         'middleware' => 'can:ipaperwork.userpaperworkhistories.destroy'
     ]);
+    $router->bind('company', function ($id) {
+        return app('Modules\Ipaperwork\Repositories\CompanyRepository')->find($id);
+    });
+    $router->get('companies', [
+        'as' => 'admin.ipaperwork.company.index',
+        'uses' => 'CompanyController@index',
+        'middleware' => 'can:ipaperwork.companies.index'
+    ]);
+    $router->get('companies/create', [
+        'as' => 'admin.ipaperwork.company.create',
+        'uses' => 'CompanyController@create',
+        'middleware' => 'can:ipaperwork.companies.create'
+    ]);
+    $router->post('companies', [
+        'as' => 'admin.ipaperwork.company.store',
+        'uses' => 'CompanyController@store',
+        'middleware' => 'can:ipaperwork.companies.create'
+    ]);
+    $router->get('companies/{company}/edit', [
+        'as' => 'admin.ipaperwork.company.edit',
+        'uses' => 'CompanyController@edit',
+        'middleware' => 'can:ipaperwork.companies.edit'
+    ]);
+    $router->put('companies/{company}', [
+        'as' => 'admin.ipaperwork.company.update',
+        'uses' => 'CompanyController@update',
+        'middleware' => 'can:ipaperwork.companies.edit'
+    ]);
+    $router->delete('companies/{company}', [
+        'as' => 'admin.ipaperwork.company.destroy',
+        'uses' => 'CompanyController@destroy',
+        'middleware' => 'can:ipaperwork.companies.destroy'
+    ]);
 // append
+
 
 
 
