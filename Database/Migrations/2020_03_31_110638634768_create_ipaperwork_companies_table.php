@@ -15,8 +15,14 @@ class CreateIpaperworkCompaniesTable extends Migration
         Schema::create('ipaperwork__companies', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+
             // Your fields
+            $table->text('title');
+            $table->text('description')->nullable();
+            $table->text('options')->nullable();
+            
             $table->timestamps();
+
         });
     }
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIpaperworkCompanyTranslationsTable extends Migration
+class CreateIpaperworkCompanyPaperworkTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,19 @@ class CreateIpaperworkCompanyTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ipaperwork__company_translations', function (Blueprint $table) {
+        Schema::create('ipaperwork__company_paperwork', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            // Your translatable fields
 
+            // Your fields
             $table->integer('company_id')->unsigned();
-            $table->string('locale')->index();
-            $table->unique(['company_id', 'locale']);
             $table->foreign('company_id')->references('id')->on('ipaperwork__companies')->onDelete('cascade');
+
+            $table->integer('paperwork_id')->unsigned();
+            $table->foreign('paperwork_id')->references('id')->on('ipaperwork__paperworks')->onDelete('cascade');
+            
+            $table->timestamps();
+
         });
     }
 
@@ -31,9 +35,6 @@ class CreateIpaperworkCompanyTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('ipaperwork__company_translations', function (Blueprint $table) {
-            $table->dropForeign(['company_id']);
-        });
-        Schema::dropIfExists('ipaperwork__company_translations');
+        Schema::dropIfExists('ipaperwork__company_paperwork');
     }
 }
