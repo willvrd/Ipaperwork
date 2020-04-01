@@ -50,8 +50,10 @@ class EloquentUserPaperworkRepository extends EloquentBaseRepository implements 
         }
 
          //add filter by user_id
-        if (isset($filter->userId)){
-          $query->where('user_id', $filter->userId);
+        if (isset($filter->users)){
+          $users = is_array($filter->users) ? $filter->users : [$filter->users];
+          $query->whereIn('user_id', $users);
+          //$query->where('user_id', $filter->user);
         }
 
       }

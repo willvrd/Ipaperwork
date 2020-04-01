@@ -15,6 +15,7 @@ use Modules\Page\Http\Controllers\PublicController as PageController;
 use Modules\Ipaperwork\Entities\Status;
 use Modules\Ipaperwork\Repositories\CompanyRepository;
 use Modules\Ipaperwork\Http\Requests\CreateUserPaperworkRequest;
+use Modules\Ipaperwork\Repositories\UserPaperworkRepository;
 
 //**** User
 use Modules\User\Contracts\Authentication;
@@ -28,17 +29,20 @@ class PublicController extends BasePublicController
     protected $auth;
     private $userApi;
     private $company;
+    private $userpaperwork;
    
     public function __construct(
         PaperworkRepository $paperwork,
         UserApiRepository $userApi,
-        CompanyRepository $company
+        CompanyRepository $company,
+        UserPaperworkRepository $userpaperwork
     ){
         parent::__construct();
         $this->paperwork = $paperwork;
         $this->auth = app(Authentication::class);
         $this->userApi = $userApi;
         $this->company = $company;
+        $this->userpaperwork = $userpaperwork;
     }
 
     public function index(Request $request)
@@ -125,7 +129,32 @@ class PublicController extends BasePublicController
     //UserPaperwork Create
     public function quotationCreate(CreateUserPaperworkRequest $request){
 
-        dd($request);
+        $data = $request->all();
+        
+        try{
+    
+            \DB::beginTransaction();
+
+            // Add UserID
+            $user = $this->auth->user();
+            $data["user_id"]= $user->id;
+
+            //Create
+            $userpaperwork = $this->userpaperwork->create($data);
+
+            \DB::commit(); //Commit to Data Base
+
+            return redirect()->route("account.profile.index");
+
+        } catch (\Exception $e) {
+
+            //dd($e);
+            \Log::error($e);
+            \DB::rollback();//Rollback to Data Base
+            
+            return redirect()->back();
+        }
+
 
     }
 
