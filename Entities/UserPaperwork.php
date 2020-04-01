@@ -16,6 +16,8 @@ class UserPaperwork extends Model
     protected $fillable = [
         'user_id',
         'paperwork_id',
+        'company_id',
+        'city',
         'status',
         'comment',
         'options'
@@ -47,6 +49,11 @@ class UserPaperwork extends Model
     public function histories()
     {
         return $this->hasMany(UserPaperworkHistory::class);
+    }
+
+    public function Company()
+    {
+        return $this->belongsTo(Company::class);
     }
 
     

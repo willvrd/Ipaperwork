@@ -22,6 +22,11 @@ class Company extends Model
         return $this->belongsToMany(Paperwork::class,'ipaperwork__company_paperwork');
     }
 
+    public function userpaperworks()
+    {
+        return $this->hasMany(UserPaperwork::class);
+    }
+
     public function getOptionsAttribute($value)
     {
         try {
