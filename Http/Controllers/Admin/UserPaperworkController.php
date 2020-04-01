@@ -13,6 +13,10 @@ use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 use Modules\Ipaperwork\Repositories\PaperworkRepository;
 use Modules\Ipaperwork\Entities\StatusUserPaperwork;
 
+//**** Iprofile
+use Modules\Iprofile\Repositories\UserApiRepository;
+
+
 class UserPaperworkController extends AdminBaseController
 {
     /**
@@ -27,12 +31,14 @@ class UserPaperworkController extends AdminBaseController
      * @var Status
      */
     private $statusUserPaperwork;
+    private $userApi;
 
 
     public function __construct(
         UserPaperworkRepository $userpaperwork,
         PaperworkRepository $paperwork,
-        StatusUserPaperwork $statusUserPaperwork
+        StatusUserPaperwork $statusUserPaperwork,
+        UserApiRepository $userApi
     )
     {
         parent::__construct();
@@ -40,6 +46,7 @@ class UserPaperworkController extends AdminBaseController
         $this->userpaperwork = $userpaperwork;
         $this->paperwork = $paperwork;
         $this->statusUserPaperwork = $statusUserPaperwork;
+        $this->userApi = $userApi;
     }
 
     /**
@@ -91,7 +98,23 @@ class UserPaperworkController extends AdminBaseController
      */
     public function edit(UserPaperwork $userpaperwork)
     {
-        return view('ipaperwork::admin.userpaperworks.edit', compact('userpaperwork'));
+
+        $statusUserPaperwork = $this->statusUserPaperwork->lists();
+
+        $user = $this->userApi->getItem($userpaperwork->user_id,(object)[
+            'take' => false,
+            'include' => ['fields','roles']
+        ]);
+
+         // Fix fields to frontend
+        $fields = [];
+        if(isset($user->fields) && !empty($user->fields)){
+            foreach ($user->fields as $f) {
+                 $fields[$f->name] = $f->value;
+            }
+        }
+
+        return view('ipaperwork::admin.userpaperworks.edit', compact('userpaperwork','fields','statusUserPaperwork'));
     }
 
     /**
