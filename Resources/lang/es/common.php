@@ -44,6 +44,10 @@ return [
         'unpublished' => 'En espera',
     ],
 
+    'quotation' => [
+        'title' => 'Cotización',
+    ],
+
     'status_text' => 'Estado',
 
     'image' => 'Imágen',
