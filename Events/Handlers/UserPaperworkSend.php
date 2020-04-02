@@ -3,7 +3,7 @@
 namespace Modules\Ipaperwork\Events\Handlers;
 
 use Illuminate\Contracts\Mail\Mailer;
-//use Modules\Ipaperwork\Emails\UserPaperwork;
+use Modules\Ipaperwork\Emails\UserPaperwork;
 
 class UserPaperworkSend
 {
@@ -23,7 +23,17 @@ class UserPaperworkSend
     public function handle($event)
     {
 
-        dd("Ejecuta evento");
+        $userpaperwork = $event->userpaperwork;
+        $data = $event->data;
+        
+        $subject = trans("ipaperwork::common.email.subject")." ".$userpaperwork->present()->status." #".$userpaperwork->id."-".time();
+        $view = "ipaperwork::emails.UserPaperwork";
+            
+        // Send Admin
+        $email_to = explode(',',$this->setting->get('ipaperwork::form-emails'));
+
+        $this->mail->to($email_to[0])->send(new UserPaperwork($userpaperwork,$subject,$view));
+        
 
     }
 

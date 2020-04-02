@@ -48,6 +48,19 @@ return [
         'title' => 'Cotización',
     ],
 
+    'email' => [
+        'subject' => 'Estado del Trámite:',
+        'intro' => 'Reporte del Sistema de Trámites',
+        'msg' =>[
+          'userpaperwork' => 'Trámite',
+          'success' => 'procesada',
+        ],
+    ],
+
+    'settings' => [
+        'form-email' => 'Emails',
+    ],
+
     'status_text' => 'Estado',
 
     'image' => 'Imágen',

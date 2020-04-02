@@ -58,7 +58,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="company" class="col-sm-3 col-form-label text-right">Entidad </label>
+                <label for="company" class="col-sm-3 col-form-label text-right">{{trans('ipaperwork::companies.singular')}}</label>
                 <div class="col-sm-8">
                     <input name="paperwork" value="{{$userpaperwork->company->title}}" class="form-control" placeholder="paperwork" required="required" type="text" readonly>
                    {{--
@@ -73,7 +73,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="comment" class="col-sm-3 col-form-label text-right">Comentario</label>
+                <label for="comment" class="col-sm-3 col-form-label text-right">{{trans('ipaperwork::userpaperworks.form.comment')}}</label>
                 <div class="col-sm-8">
                 <textarea class="form-control" rows="2" readonly required="required" name="comment" cols="50">{{$userpaperwork->comment}}</textarea>
                 </div>

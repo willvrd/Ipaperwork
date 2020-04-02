@@ -148,7 +148,6 @@ class PublicController extends BasePublicController
 
         } catch (\Exception $e) {
 
-            //dd($e);
             \Log::error($e);
             \DB::rollback();//Rollback to Data Base
             
