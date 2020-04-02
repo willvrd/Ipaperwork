@@ -5,11 +5,13 @@ namespace Modules\Ipaperwork\Repositories\Eloquent;
 use Modules\Ipaperwork\Repositories\UserPaperworkRepository;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
+use Modules\Ipaperwork\Events\UserPaperworkWasCreated;
+
 class EloquentUserPaperworkRepository extends EloquentBaseRepository implements UserPaperworkRepository
 {
 
 	public function getItemsBy($params = false)
-    {
+  {
 
       // INITIALIZE QUERY
       $query = $this->model->query();
@@ -70,10 +72,10 @@ class EloquentUserPaperworkRepository extends EloquentBaseRepository implements 
         return $query->get();
       }
     
-    }
+  }
 
-    public function getItem($criteria, $params = false)
-    {
+  public function getItem($criteria, $params = false)
+  {
       // INITIALIZE QUERY
       $query = $this->model->query();
 
@@ -97,8 +99,18 @@ class EloquentUserPaperworkRepository extends EloquentBaseRepository implements 
 
       return $query->first();
 
-    }
+  }
 
+  public function create($data)
+  {
+     
+    $model = $this->model->create($data);
+
+    event(new UserPaperworkWasCreated($model, $data));
+
+    return $model;
+     
+  }
 
 
 }
