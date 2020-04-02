@@ -42,6 +42,20 @@
                     </div>
                 </div>
 
+                {{-- File --}}
+                @if(isset($userpaperwork->options->pfile))
+                <div class="form-group row">
+                    <label for="ciudad" class="col-sm-3 col-form-label text-right">
+                        {{trans('ipaperwork::common.form.file')}} 
+                    </label>
+                    <div class="col-sm-8">
+                        <a href="{{url($userpaperwork->options->pfile)}}" 
+                            target="_blank" style="text-decoration: none;">
+                            <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                @endif
 
             </div>
         </div>

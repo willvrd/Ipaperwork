@@ -130,7 +130,7 @@ class PublicController extends BasePublicController
     public function quotationCreate(CreateUserPaperworkRequest $request){
 
         $data = $request->all();
-        
+
         try{
     
             \DB::beginTransaction();

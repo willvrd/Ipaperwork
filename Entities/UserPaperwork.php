@@ -36,6 +36,12 @@ class UserPaperwork extends Model
         }
     }
 
+    public function setOptionsAttribute($value) {
+    
+        $this->attributes['options'] = json_encode($value);
+      
+    }
+
     public function Paperwork()
     {
         return $this->belongsTo(Paperwork::class);

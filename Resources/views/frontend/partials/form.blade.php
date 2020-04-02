@@ -1,6 +1,7 @@
 {!!Form::open(array(
     'url' => route('ipaperwork.quotation.create'), 
     'method' => 'POST', 
+    'enctype' => 'multipart/form-data',
     'id' => 'form-quotation',
     'class' => 'form-horizontal'))!!}
 
@@ -64,6 +65,21 @@
      </div>
 
     <input name="paperwork_id" value="{{$paperwork->id}}" type="hidden">
+
+    {{-- FILE --}}
+    <div class="form-group row">
+        <label for="pfile" class="col-sm-4 col-form-label text-right">
+           {{trans('ipaperwork::common.form.file')}} 
+        </label>
+        <div class="col-sm-8">
+            <input type="file" class="form-control-file" id="pfile" name="pfile" aria-describedby="fileHelp">
+            <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+            <small id="fileHelp" class="form-text text-muted">
+                {{trans('ipaperwork::common.file.formats')}}: PDF -
+                {{trans('ipaperwork::common.file.size max')}}: 2MB
+            </small>
+        </div>
+    </div>
 
     <div class="row justify-content-end">
         <button type="submit" class="btn btn-primary btn-send text-uppercase font-weight-bold">Enviar</button>

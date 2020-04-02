@@ -25,6 +25,7 @@ return [
         'parent category' => 'Categoria Padre',
         'categories' => 'Categorias',
         'gallery' => 'Galeria',
+        'file' => 'Archivo',
     ],
     'messages' => [
         'title is required'=>'El título es requerido',
@@ -55,6 +56,11 @@ return [
           'userpaperwork' => 'Trámite',
           'success' => 'procesada',
         ],
+    ],
+
+    'file' => [
+        'formats' => 'Formatos',
+        'size max' => 'Tamaño Max',
     ],
 
     'settings' => [

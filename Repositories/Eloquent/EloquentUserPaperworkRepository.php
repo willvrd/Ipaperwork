@@ -106,11 +106,46 @@ class EloquentUserPaperworkRepository extends EloquentBaseRepository implements 
      
     $model = $this->model->create($data);
 
+    // Save File
+    if(isset($data["pfile"]) && $data["pfile"]->isValid()){
+      $folderBase = "user-".$model->user_id;
+      $filePath = $this->saveFile($data["pfile"],$model->id,$folderBase);
+      if ($filePath != null) {
+        $options['pfile'] = $filePath;
+        $model->options = $options;
+        $model->save();
+      }
+    }
+
+    // Send Email
     event(new UserPaperworkWasCreated($model, $data));
 
     return $model;
      
   }
 
+  public function saveFile($pfile, $idPaperwork, $folderBase)
+  {
+
+      $disk = 'publicmedia';
+
+      $original_filename = $pfile->getClientOriginalName();
+      $extension = $pfile->getClientOriginalExtension();
+      $allowedextensions = array('PDF');
+
+      if (!in_array(strtoupper($extension), $allowedextensions)) {
+          throw new \Exception('Error Extension File', 204);
+      }
+
+      $name = str_slug(str_replace('.' . $extension, '', $original_filename), '-');
+      $namefile = $name . '.' . $extension;
+
+      $destination_path = 'assets/ipaperwork/paperworks/'.$folderBase.'/' . $idPaperwork .'.pdf';
+
+      \Storage::disk($disk)->put($destination_path, \File::get($pfile));
+      return $destination_path;
+  }
+
+ 
 
 }
