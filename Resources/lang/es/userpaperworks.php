@@ -6,6 +6,7 @@ return [
     'edit resource' => 'Editar trámites',
     'destroy resource' => 'Eliminar trámites',
     'title' => [
+        'userpaperwork' => 'Trámite',
         'userpaperworks' => 'Trámites',
         'create userpaperwork' => 'Crear un trámite',
         'edit userpaperwork' => 'Editar un trámite',

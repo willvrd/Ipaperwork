@@ -17,8 +17,8 @@ class CreateIpaperworkUserPaperworkHistoriesTable extends Migration
             $table->increments('id');
 
             // Your fields
-            $table->integer('userpaperwork_id')->unsigned();
-            $table->foreign('userpaperwork_id')->references('id')->on('ipaperwork__user_paperwork')->onDelete('restrict');
+            $table->integer('user_paperwork_id')->unsigned();
+            $table->foreign('user_paperwork_id')->references('id')->on('ipaperwork__user_paperwork')->onDelete('restrict');
 
             $table->tinyInteger('status')->default(0)->unsigned();
             $table->integer('notify')->default(1)->unsigned();

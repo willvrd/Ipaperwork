@@ -8,7 +8,9 @@ class CreateUserPaperworkHistoryRequest extends BaseFormRequest
 {
     public function rules()
     {
-        return [];
+        return [
+            'user_paperwork_id' => 'required',
+        ];
     }
 
     public function translationRules()
@@ -23,11 +25,15 @@ class CreateUserPaperworkHistoryRequest extends BaseFormRequest
 
     public function messages()
     {
-        return [];
+        return [
+            'user_paperwork_id.required' => trans('ipaperwork::common.messages.userpaperworkid is required'),
+        ];
     }
 
     public function translationMessages()
     {
-        return [];
+        return [
+            'user_paperwork_id.required' => trans('ipaperwork::common.messages.userpaperworkid is required'),
+        ];
     }
 }

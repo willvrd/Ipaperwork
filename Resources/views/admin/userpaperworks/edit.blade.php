@@ -2,12 +2,13 @@
 
 @section('content-header')
     <h1>
-        {{ trans('ipaperwork::userpaperworks.title.edit userpaperwork') }}
+        {{ trans('ipaperwork::userpaperworks.title.userpaperwork') }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
         <li><a href="{{ route('admin.ipaperwork.userpaperwork.index') }}">{{ trans('ipaperwork::userpaperworks.title.userpaperworks') }}</a></li>
-        <li class="active">{{ trans('ipaperwork::userpaperworks.title.edit userpaperwork') }}</li>
+        <li class="active">{{ trans('ipaperwork::userpaperworks.title.userpaperwork') }}
+        {{-- <li class="active">{{ trans('ipaperwork::userpaperworks.title.edit userpaperwork') }}</li> --}}
     </ol>
 @stop
 
@@ -38,12 +39,27 @@
         </div> 
 
          {{-- Fields Right --}}
-         <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-4">
             @include('ipaperwork::admin.userpaperworks.partials.edit-fields-right') 
         </div>
-
     </div>
     {!! Form::close() !!}
+
+    
+    <div class="row">
+
+        {{-- Fields History --}}
+        <div class="col-xs-12 col-md-8">
+            @include('ipaperwork::admin.userpaperworks.partials.history')
+        </div>
+
+        {{-- Fields Add --}}
+        <div class="col-xs-12 col-md-4">
+            @include('ipaperwork::admin.userpaperworks.partials.add-history')
+        </div>
+    
+    </div>
+    
 @stop
 
 @section('footer')

@@ -54,10 +54,28 @@ class UserPaperworkHistoryController extends AdminBaseController
      */
     public function store(CreateUserPaperworkHistoryRequest $request)
     {
-        $this->userpaperworkhistory->create($request->all());
+       
+        \DB::beginTransaction();
+        try {
 
+            $this->userpaperworkhistory->create($request->all());
+            \DB::commit();//Commit to Data Base
+
+            return redirect()->route('admin.ipaperwork.userpaperwork.index')
+            ->withSuccess(trans('core::core.messages.resource created', ['name' => trans('ipaperwork::userpaperworkhistories.title.userpaperworkhistories')]));
+
+        } catch (\Exception $e) {
+
+            \DB::rollback();
+            \Log::error($e);
+            return redirect()->back()
+                ->withError(trans('core::core.messages.resource error', ['name' => trans('ipaperwork::userpaperworkhistories.title.userpaperworkhistories')]))->withInput($request->all());
+
+        }
+        /*
         return redirect()->route('admin.ipaperwork.userpaperworkhistory.index')
             ->withSuccess(trans('core::core.messages.resource created', ['name' => trans('ipaperwork::userpaperworkhistories.title.userpaperworkhistories')]));
+        */
     }
 
     /**
