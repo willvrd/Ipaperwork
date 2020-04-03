@@ -45,6 +45,7 @@ class IpaperworkServiceProvider extends ServiceProvider
     {
         $this->publishConfig('ipaperwork', 'permissions');
         $this->publishConfig('ipaperwork', 'settings');
+        $this->publishConfig('ipaperwork', 'config');
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }

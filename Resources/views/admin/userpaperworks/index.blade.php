@@ -76,12 +76,6 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        {{--
-                                        <button 
-                                            title="Editar" 
-                                            onclick="editUserPaperwork({!!$userpaperwork->id!!})" 
-                                            type="button" class="btn btn-sm btn-info btn-flat"><i class="fa fa-edit"></i></button>
-                                        --}}
                                         
                                         <a href="{{ route('admin.ipaperwork.userpaperwork.edit', [$userpaperwork->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
                                        

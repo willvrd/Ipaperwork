@@ -73,10 +73,19 @@
         </label>
         <div class="col-sm-8">
             <input type="file" class="form-control-file" id="pfile" name="pfile" aria-describedby="fileHelp">
-            <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+            @php
+                $maxsize = config('asgard.ipaperwork.config.files.maxsize.value');
+                $maxsizeText = config('asgard.ipaperwork.config.files.maxsize.text');
+            @endphp
+            <input type="hidden" name="MAX_FILE_SIZE" value="{{$maxsize}}">
             <small id="fileHelp" class="form-text text-muted">
-                {{trans('ipaperwork::common.file.formats')}}: PDF -
-                {{trans('ipaperwork::common.file.size max')}}: 2MB
+                {{trans('ipaperwork::common.file.formats')}}:
+                @if(config('asgard.ipaperwork.config.files.formats'))
+                    @foreach (config('asgard.ipaperwork.config.files.formats') as $format)
+                        {{$format}} -
+                    @endforeach
+                @endif
+                {{trans('ipaperwork::common.file.size max')}}: {{$maxsizeText}}
             </small>
         </div>
     </div>
