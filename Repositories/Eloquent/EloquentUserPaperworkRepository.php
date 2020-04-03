@@ -124,6 +124,13 @@ class EloquentUserPaperworkRepository extends EloquentBaseRepository implements 
      
   }
 
+  public function destroy($model){
+
+    $model->histories()->delete();
+    $model->delete();
+    
+  }
+
   public function saveFile($pfile, $idPaperwork, $folderBase)
   {
 

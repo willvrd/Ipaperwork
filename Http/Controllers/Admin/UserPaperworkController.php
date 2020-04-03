@@ -140,9 +140,20 @@ class UserPaperworkController extends AdminBaseController
      */
     public function destroy(UserPaperwork $userpaperwork)
     {
-        $this->userpaperwork->destroy($userpaperwork);
+        
+        try {
+            
+            $this->userpaperwork->destroy($userpaperwork);
 
-        return redirect()->route('admin.ipaperwork.userpaperwork.index')
+            return redirect()->route('admin.ipaperwork.userpaperwork.index')
             ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('ipaperwork::userpaperworks.title.userpaperworks')]));
+        
+        } catch (\Exception $e) {
+            \Log::error($e);
+            return redirect()->back()
+                ->withError(trans('core::core.messages.resource error', ['name' => trans('ipaperwork::userpaperworks.title.userpaperworks')]));
+
+        }
+
     }
 }
