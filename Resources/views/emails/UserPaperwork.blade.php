@@ -61,10 +61,9 @@
         
                                     <tr bgcolor="ffffff">
                                         <td>
-                                            {{--
-                                            @includeFirst(['ipaperwork.emails.content', 'ipaperwork::emails.base.content'])
-                                            --}}
-                                            @include('ipaperwork::emails.base.content')
+                                            
+                                        @includeFirst(['ipaperwork.emails.content.userpaperwork', 'ipaperwork::emails.content.userpaperwork'])
+                                            
                                         </td>
                                     </tr>
         

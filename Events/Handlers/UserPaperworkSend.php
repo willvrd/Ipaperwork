@@ -26,7 +26,7 @@ class UserPaperworkSend
         $userpaperwork = $event->userpaperwork;
         $data = $event->data;
         
-        $subject = trans("ipaperwork::common.email.subject")." ".$userpaperwork->present()->status." #".$userpaperwork->id."-".time();
+        $subject = trans("ipaperwork::common.email.subject")." ".$userpaperwork->present()->status." #".$userpaperwork->id;
         $view = "ipaperwork::emails.UserPaperwork";
             
         // Send Admin

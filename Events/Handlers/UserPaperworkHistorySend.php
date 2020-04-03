@@ -36,8 +36,6 @@ class UserPaperworkHistorySend
         $this->mail->to($uphistory->userPaperwork->user->email)->send(new UserPaperworkHistory($uphistory,$subject,$view));
        
 
-        dd("SIIII");
-
     }
 
     
