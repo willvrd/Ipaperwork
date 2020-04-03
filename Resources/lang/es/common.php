@@ -51,6 +51,7 @@ return [
 
     'email' => [
         'subject' => 'Estado del Trámite:',
+        'subject change' => 'Ha cambiado el Estado del Trámite:',
         'intro' => 'Reporte del Sistema de Trámites',
         'msg' =>[
           'userpaperwork' => 'Trámite',

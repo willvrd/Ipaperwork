@@ -5,6 +5,8 @@ namespace Modules\Ipaperwork\Repositories\Eloquent;
 use Modules\Ipaperwork\Repositories\UserPaperworkHistoryRepository;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
+use Modules\Ipaperwork\Events\UserPaperworkHistoryWasCreated;
+
 class EloquentUserPaperworkHistoryRepository extends EloquentBaseRepository implements UserPaperworkHistoryRepository
 {
 
@@ -21,6 +23,9 @@ class EloquentUserPaperworkHistoryRepository extends EloquentBaseRepository impl
             );
             $model->userPaperwork->update($param);
         }
+
+        // Send Email
+        event(new UserPaperworkHistoryWasCreated($model, $data));
   
         return $model;
 
