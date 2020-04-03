@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-  @includeFirst(['ipaperwork.emails.style', 'ipaperwork::emails.base.style'])
+  @includeFirst(['ipaperwork.emails.base.style', 'ipaperwork::emails.base.style'])
   
 </head>
 
@@ -18,8 +18,8 @@
         <tr bgcolor="#4c4e4e">
             <td width="100%" align="center" valign="top" bgcolor="#4c4e4e">
         
-                   
-                @includeFirst(['ipaperwork.emails.header', 'ipaperwork::emails.base.header'])
+                
+                @includeFirst(['ipaperwork.emails.base.header', 'ipaperwork::emails.base.header'])
                                       
                 <!----------   main content------------>
                 <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="container" bgcolor="F2F2F2">
@@ -73,7 +73,7 @@
                         </tr>
                     <!--------- end main section --------->
     
-                    @includeFirst(['ipaperwork.emails.pre-footer', 'ipaperwork::emails.base.pre-footer'])
+                    @includeFirst(['ipaperwork.emails.base.pre-footer', 'ipaperwork::emails.base.pre-footer'])
         
                     <tr><td height="30"></td></tr>
 
@@ -81,7 +81,7 @@
                 </table>
                 <!------------ end main Content ----------------->
                    
-                @includeFirst(['ipaperwork.emails.footer', 'ipaperwork::emails.base.footer'])
+                @includeFirst(['ipaperwork.emails.base.footer', 'ipaperwork::emails.base.footer'])
                     
             </td>
         </tr>
