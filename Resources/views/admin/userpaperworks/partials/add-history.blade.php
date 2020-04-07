@@ -20,13 +20,16 @@
                 </select>
             </div>
             {{-- COMMENT --}}
+            @editor('comment', trans('ipaperwork::userpaperworkhistories.table.comment'))
+            {{--
             <div class="form-group">
                 <label for="comment">{{trans('ipaperwork::userpaperworkhistories.table.comment')}}</label>
                 <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
             </div>
+            --}}
 
             <input type="hidden" name="user_paperwork_id" value="{{$userpaperwork->id}}">
-            
+            <br>
             {{-- BTN --}}
             <button id="addhistory" type="submit" class="btn btn-primary pull-right" data-loading-text="Loading...">{{trans('ipaperwork::userpaperworkhistories.button.change')}}</button>   
         </div> 
