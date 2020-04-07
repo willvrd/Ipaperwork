@@ -19,8 +19,9 @@ class UserPaperworkTransformer extends Resource
       'statusName' => $this->when($this->present()->status,$this->present()->status),
       'comment' => $this->when($this->comment,$this->comment),
       'options' => $this->when($this->options,$this->options),
+      'histories' => UserPaperworkHistoryTransformer::collection($this->whenLoaded('histories')),
       'createdAt' => $this->when($this->created_at,$this->created_at),
-      'updatedAt' => $this->when($this->updated_at,$this->updated_at)
+      'updatedAt' => $this->when($this->updated_at,$this->updated_at),
     ];
     
     return $item;
