@@ -35,6 +35,7 @@ return [
         'summary is required'=>'La Descripciòn Corta requerida',
         'summary min 2'=>'La Descripciòn Corta debe contener mÃ­nimo dos caracteres',
         'error' => 'Ha ocurrido un error',
+        'not infor' => 'No se ha agregado información',
     ],
     'validation' => [
     ],
